@@ -5,6 +5,44 @@
   </head>
 
   <body>
-    <!-- TODO: make this website -->
+
+    <header>
+      <h1>Shit the Admins Say</h1>
+    </header>
+
+    <content id="target">
+      <div id="target-default">
+        This text is shown if the template hasn't been rendered yet
+      </div>
+    </content>
+
+    <script id="template" type="text/template">
+      <table>
+        <tr>
+          <th>Admin</th>
+          <th>Subreddit</th>
+          <th>Comment</th>
+          <th>Link</th>
+          <th>Submit to /r/stas</th>
+        </tr>
+        {{#posts}}
+        <tr>
+          <td>{{author}}</td>
+          <td>{{subreddit}}</td>
+          <td>{{{body_html}}}</td>
+          <td>This hasn't been implemented yet.</td>
+          <td>Neither has this.</td>
+        </tr>
+        {{/posts}}
+      </table>
+    </script>
+
+    <script src="./js/snoocore/snoocore.min.js"></script>
+    <script src="./js/collections.min.js"></script>
+    <script src="./js/microevent.js"></script>
+    <script src="./js/postlist.js"></script>
+    <script src="./js/Mustache.min.js"></script>
+    <script src="./js/main.js"></script>
+
   </body>
 </html>
