@@ -1,0 +1,5 @@
+body {
+  background-color: #EFEFD0;
+}
+
+.loading > *:first-child {}

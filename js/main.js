@@ -2,7 +2,7 @@
   "use strict";
 
   var ADMINS = [
-    '5days', 'acidtwist', 'ajacksified', /*'akahotcheetos', 'aurora-73', 'bethereinfive',
+    '5days', 'acidtwist', 'ajacksified', 'akahotcheetos', 'aurora-73', 'bethereinfive',
     'bluemoon3689', 'bluepinkblack', 'bsimpson', 'cat_sweaterz', 'chooter', 'ckk524',
     'cmrnwllsbrn', 'comeforthlazarus', 'curioussavage01', 'danehansen', 'deimorz',
     'dforsyth', 'donotlicktoaster', 'drew', 'drunkeneconomist', 'ekjp', 'florwat',
@@ -12,7 +12,7 @@
     'ocrasorm', 'pixelinaa', 'powerlanguage', 'rhymeswithandrew', 'rram', 'rrmckinley',
     'ryanmerket', 'sgtjamz', 'spladug', 'sporkicide', 'taxidermyunicornhead', 'tdohz',
     'thorarakis', 'umbrae', 'weffey', 'willowgrain', 'xilvar', 'xiongchiamiov',
-    'youngluck', 'zeantsoi', 'zubair'*/
+    'youngluck', 'zeantsoi', 'zubair'
   ]
 
   // Set up Reddit wrapper
@@ -32,9 +32,8 @@
   window.posts = new PostList();
 
   // Templating
-  Handlebars.registerHelper('stripType', function(id) {
-    return id.substring(3);
-  })
+  Handlebars.registerHelper('stripType', function(id) { return id.substring(3); })
+  Handlebars.registerHelper('toHuman', function(ts) { return moment.unix(ts).fromNow() })
 
   var template = Handlebars.compile(document.getElementById('template').innerHTML);
   var renderPoint = document.getElementById('target');
@@ -43,9 +42,9 @@
   })
 
   window.addEventListener('load', function load() {
-    ADMINS.forEach(function foreachAdmin(admin) {
+    var promises = ADMINS.map(function foreachAdmin(admin) {
 
-      reddit('/user/' + admin + '/comments')
+      return reddit('/user/' + admin + '/comments')
         .listing({ limit: 10, sort: 'new' })
         .then(function commentsThen(slice) {
           // NOTE: this variable name may not be entirely accurate during development
@@ -60,8 +59,11 @@
 
           posts.add(commentsToAdd);
         });
-
     });
+
+    Q.all(promises).fin(function() {
+      document.getElementById('target').classList.remove('loading');
+    }).fail(console.error.bind(console));
   });
 
 })();

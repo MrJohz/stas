@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Shit the Admins Say</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
   </head>
 
   <body>
@@ -10,7 +12,7 @@
       <h1>Shit the Admins Say</h1>
     </header>
 
-    <content id="target">
+    <content id="target" class="loading">
       <div id="target-default">
         This text is shown if the template hasn't been rendered yet
       </div>
@@ -19,6 +21,7 @@
     <script id="template" type="text/template">
       <table>
         <tr>
+          <th>Date</th>
           <th>Admin</th>
           <th>Subreddit</th>
           <th>Comment</th>
@@ -26,6 +29,7 @@
         </tr>
         {{#posts}}
         <tr>
+          <td>{{toHuman created_utc}}</td>
           <td><a href="http://reddit.com/u/{{author}}">{{author}}</a></td>
           <td><a href="http://reddit.com/r/{{subreddit}}">{{subreddit}}</a></td>
           <td><span class="vote">{{score}}</span>{{{body_html}}}</td>
@@ -35,6 +39,8 @@
       </table>
     </script>
 
+    <script src="./js/q.js"></script>
+    <script src="./js/moment.min.js"></script>
     <script src="./js/snoocore/snoocore.min.js"></script>
     <script src="./js/collections.min.js"></script>
     <script src="./js/microevent.js"></script>
