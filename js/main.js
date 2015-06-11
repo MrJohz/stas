@@ -47,12 +47,11 @@
       return reddit('/user/' + admin + '/comments')
         .listing({ limit: 10, sort: 'new' })
         .then(function commentsThen(slice) {
-          // NOTE: this variable name may not be entirely accurate during development
-          var oneMonthAgo = (Date.now() / 1000) - (60 * 60 * 24 * 7 /* one week */);
+          var oneWeekAgo = (Date.now() / 1000) - (60 * 60 * 24 * 7 /* one week */);
           var commentsToAdd = [];
 
           slice.children.forEach(function foreachComment(child) {
-            if (child.data.created_utc > oneMonthAgo) {
+            if (child.data.created_utc > oneWeekAgo) {
               commentsToAdd.push(child.data);
             }
           })
