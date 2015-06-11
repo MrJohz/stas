@@ -27,10 +27,10 @@
         </tr>
         {{#posts}}
         <tr>
-          <td>{{author}}</td>
-          <td>{{subreddit}}</td>
-          <td>{{{body_html}}}</td>
-          <td>This hasn't been implemented yet.</td>
+          <td><a href="http://reddit.com/u/{{author}}">{{author}}</a></td>
+          <td><a href="http://reddit.com/r/{{subreddit}}">{{subreddit}}</a></td>
+          <td><span class="vote">{{score}}</span>{{{body_html}}}</td>
+          <td><a href="http://reddit.com/comments/{{stripType link_id}}/-/{{id}}?context=10">{{id}}</a></td>
           <td>Neither has this.</td>
         </tr>
         {{/posts}}
@@ -41,7 +41,7 @@
     <script src="./js/collections.min.js"></script>
     <script src="./js/microevent.js"></script>
     <script src="./js/postlist.js"></script>
-    <script src="./js/Mustache.min.js"></script>
+    <script src="./js/handlebars-v3.0.3.js"></script>
     <script src="./js/main.js"></script>
 
   </body>
