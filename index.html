@@ -23,7 +23,6 @@
           <th>Subreddit</th>
           <th>Comment</th>
           <th>Link</th>
-          <th>Submit to /r/stas</th>
         </tr>
         {{#posts}}
         <tr>
@@ -31,7 +30,6 @@
           <td><a href="http://reddit.com/r/{{subreddit}}">{{subreddit}}</a></td>
           <td><span class="vote">{{score}}</span>{{{body_html}}}</td>
           <td><a href="http://reddit.com/comments/{{stripType link_id}}/-/{{id}}?context=10">{{id}}</a></td>
-          <td>Neither has this.</td>
         </tr>
         {{/posts}}
       </table>
