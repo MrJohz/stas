@@ -1,5 +1,67 @@
 body {
-  background-color: #EFEFD0;
+  background-color: white;
+  width: 100%;
+  margin: 0;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 0.8em;
 }
 
-.loading > *:first-child {}
+header {
+  background-color: #cee3f8;
+  padding: 0.5em;
+  text-align: center;
+  border-bottom: 1px solid #5f99cf;
+}
+
+header a {
+  color: rgb(34, 34, 34);
+  text-decoration: none;
+}
+
+.post {
+  width: 95%;
+  padding: 0;
+  color: rgb(34, 34, 34);
+  display: table;
+  border: 1px solid rgb(230, 230, 230);
+  border-radius: 0.5em;
+  margin: 0.6em auto;
+}
+
+.post > * {
+  display: table-cell;
+}
+
+.post-leftbar {
+  text-align: center;
+  width: 12%;
+  padding: 0.5em;
+}
+
+.post-middlebar {
+  text-align: center;
+  width: 5%;
+  padding: 0.2em;
+}
+
+.post-mainbar {
+  width: 83%;
+  padding: 0.5em;
+}
+
+#target.loading:before {
+  text-align: center;
+  background-color: rgb(247, 247, 248);
+  width: 95%;
+  content: 'Loading...';
+  padding: 0.7em 0;
+  color: rgb(34, 34, 34);
+  display: table;
+  border: 1px solid rgb(230, 230, 230);
+  border-radius: 0.5em;
+  margin: 0.6em auto;
+}
+
+#target:not(.loading):before {
+  display: none;
+}

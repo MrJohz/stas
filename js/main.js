@@ -2,7 +2,7 @@
   "use strict";
 
   var ADMINS = [
-    '5days', 'acidtwist', 'ajacksified', 'akahotcheetos', 'aurora-73', 'bethereinfive',
+    '5days', 'acidtwist', 'ajacksified', /*'akahotcheetos', 'aurora-73', 'bethereinfive',
     'bluemoon3689', 'bluepinkblack', 'bsimpson', 'cat_sweaterz', 'chooter', 'ckk524',
     'cmrnwllsbrn', 'comeforthlazarus', 'curioussavage01', 'danehansen', 'deimorz',
     'dforsyth', 'donotlicktoaster', 'drew', 'drunkeneconomist', 'ekjp', 'florwat',
@@ -12,7 +12,7 @@
     'ocrasorm', 'pixelinaa', 'powerlanguage', 'rhymeswithandrew', 'rram', 'rrmckinley',
     'ryanmerket', 'sgtjamz', 'spladug', 'sporkicide', 'taxidermyunicornhead', 'tdohz',
     'thorarakis', 'umbrae', 'weffey', 'willowgrain', 'xilvar', 'xiongchiamiov',
-    'youngluck', 'zeantsoi', 'zubair'
+    'youngluck', 'zeantsoi', 'zubair'*/
   ]
 
   // Set up Reddit wrapper
@@ -45,7 +45,7 @@
     var promises = ADMINS.map(function foreachAdmin(admin) {
 
       return reddit('/user/' + admin + '/comments')
-        .listing({ limit: 10, sort: 'new' })
+        .listing({ limit: 50, sort: 'new' })
         .then(function commentsThen(slice) {
           var oneWeekAgo = (Date.now() / 1000) - (60 * 60 * 24 * 7 /* one week */);
           var commentsToAdd = [];

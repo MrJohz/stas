@@ -3,40 +3,39 @@
   <head>
     <title>Shit the Admins Say</title>
 
-    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
   </head>
 
   <body>
 
     <header>
-      <h1>Shit the Admins Say</h1>
+      <h1><a href="./">Shit the Admins Say</a></h1>
     </header>
 
-    <content id="target" class="loading">
-      <div id="target-default">
-        This text is shown if the template hasn't been rendered yet
-      </div>
-    </content>
+    <content id="target" class="loading"></content>
 
     <script id="template" type="text/template">
-      <table>
-        <tr>
-          <th>Date</th>
-          <th>Admin</th>
-          <th>Subreddit</th>
-          <th>Comment</th>
-          <th>Link</th>
-        </tr>
-        {{#posts}}
-        <tr>
-          <td>{{toHuman created_utc}}</td>
-          <td><a href="http://reddit.com/u/{{author}}">{{author}}</a></td>
-          <td><a href="http://reddit.com/r/{{subreddit}}">{{subreddit}}</a></td>
-          <td><span class="vote">{{score}}</span>{{{body_html}}}</td>
-          <td><a href="http://reddit.com/comments/{{stripType link_id}}/-/{{id}}?context=10">{{id}}</a></td>
-        </tr>
-        {{/posts}}
-      </table>
+      {{#posts}}
+        <div class="post">
+          <div class="post-leftbar">
+            <p class="created-date">{{toHuman created_utc}}</p>
+            <p class="whence-and-where">
+              <a href="http://reddit.com/u/{{author}}">{{author}}</a> in
+              <a href="http://reddit.com/r/{{subreddit}}">{{subreddit}}</a>
+            </p>
+          </div>
+          <div class="post-middlebar">
+            <p class="vote">{{score}}</p>
+            <p class="link">
+              <a href="http://reddit.com/r/{{subreddit}}/comments/{{stripType link_id}}/-/{{id}}?context=10">{{id}}</a>
+            </p>
+          </div>
+          <div class="post-mainbar">
+            {{{body_html}}}
+          </div>
+        </div>
+      {{/posts}}
     </script>
 
     <script src="./js/q.js"></script>
