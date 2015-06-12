@@ -2,7 +2,7 @@
   "use strict";
 
   var ADMINS = [
-    '5days', 'acidtwist', 'ajacksified', /*'akahotcheetos', 'aurora-73', 'bethereinfive',
+    '5days', 'acidtwist', 'ajacksified', 'akahotcheetos', 'aurora-73', 'bethereinfive',
     'bluemoon3689', 'bluepinkblack', 'bsimpson', 'cat_sweaterz', 'chooter', 'ckk524',
     'cmrnwllsbrn', 'comeforthlazarus', 'curioussavage01', 'danehansen', 'deimorz',
     'dforsyth', 'donotlicktoaster', 'drew', 'drunkeneconomist', 'ekjp', 'florwat',
@@ -12,7 +12,7 @@
     'ocrasorm', 'pixelinaa', 'powerlanguage', 'rhymeswithandrew', 'rram', 'rrmckinley',
     'ryanmerket', 'sgtjamz', 'spladug', 'sporkicide', 'taxidermyunicornhead', 'tdohz',
     'thorarakis', 'umbrae', 'weffey', 'willowgrain', 'xilvar', 'xiongchiamiov',
-    'youngluck', 'zeantsoi', 'zubair'*/
+    'youngluck', 'zeantsoi', 'zubair'
   ]
 
   // Set up Reddit wrapper
