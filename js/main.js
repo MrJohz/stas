@@ -49,9 +49,6 @@
   var postsTemplate = Handlebars.compile(document.getElementById('content-template').innerHTML);
   var settingsTemplate = Handlebars.compile(document.getElementById('menu-template').innerHTML);
   var renderPoint = document.getElementById('target');
-  posts.bind('update', function (posts) {
-    renderPoint.innerHTML = postsTemplate({posts: posts.list.toArray()});
-  })
 
 
   // Event handlers
@@ -69,6 +66,31 @@
     }
   }
 
+  function updateAdmin(admin) {
+
+    return reddit('/user/' + admin + '/comments')
+      .listing({ limit: 50, sort: 'new' })
+      .then(function commentsThen(slice) {
+        var oneWeekAgo = (Date.now() / 1000) - (60 * 60 * 24 * 7 /* one week */);
+        var commentsToAdd = [];
+
+        slice.children.forEach(function foreachComment(child) {
+          if (child.data.created_utc > oneWeekAgo) {
+            commentsToAdd.push(child.data);
+          }
+        })
+
+        posts.add(commentsToAdd);
+      });
+  }
+
+  posts.bind('show', function (posts, admin) {
+    updateAdmin(admin);
+  });
+  posts.bind('update', function (posts) {
+    renderPoint.innerHTML = postsTemplate({posts: posts.list.toArray()});
+  });
+
 
   // Main
 
@@ -83,23 +105,7 @@
       document.getElementById('menu').appendChild(para);
     }
 
-    var promises = ADMINS.map(function foreachAdmin(admin) {
-
-      return reddit('/user/' + admin + '/comments')
-        .listing({ limit: 50, sort: 'new' })
-        .then(function commentsThen(slice) {
-          var oneWeekAgo = (Date.now() / 1000) - (60 * 60 * 24 * 7 /* one week */);
-          var commentsToAdd = [];
-
-          slice.children.forEach(function foreachComment(child) {
-            if (child.data.created_utc > oneWeekAgo) {
-              commentsToAdd.push(child.data);
-            }
-          })
-
-          posts.add(commentsToAdd);
-        });
-    });
+    var promises = ADMINS.map(updateAdmin);
 
     Q.all(promises).fin(function () {
       document.getElementById('target').classList.remove('loading');
