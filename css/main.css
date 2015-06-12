@@ -101,3 +101,11 @@ header a {
   border-radius: 0.5em;
   margin: 0.6em auto;
 }
+
+#nav-trigger:checked ~ #menu > p {
+  display: inline-block;
+  padding: 0.3em;
+  margin: 0.2em 0.5em;
+  border: 1px solid rgb(230, 230, 230);
+  border-radius: 0.5em;
+}
