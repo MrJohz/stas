@@ -1,4 +1,5 @@
 body {
+  color: rgb(34, 34, 34);
   background-color: white;
   width: 100%;
   margin: 0;
@@ -7,6 +8,7 @@ body {
 }
 
 header {
+  font-size: 1.5em;
   background-color: #cee3f8;
   padding: 0.5em;
   text-align: center;
@@ -21,7 +23,6 @@ header a {
 .post {
   width: 95%;
   padding: 0;
-  color: rgb(34, 34, 34);
   display: table;
   border: 1px solid rgb(230, 230, 230);
   border-radius: 0.5em;
@@ -49,13 +50,16 @@ header a {
   padding: 0.5em;
 }
 
-#target.loading:before {
+
+/* Create a loading sign whilst any loading is taking place.  This
+   will occur whilst #target has the 'loading' class */
+
+#target.loading:before, #target > noscript {
   text-align: center;
   background-color: rgb(247, 247, 248);
   width: 95%;
   content: 'Loading...';
   padding: 0.7em 0;
-  color: rgb(34, 34, 34);
   display: table;
   border: 1px solid rgb(230, 230, 230);
   border-radius: 0.5em;
@@ -64,4 +68,36 @@ header a {
 
 #target:not(.loading):before {
   display: none;
+}
+
+
+/* Magic for the menu.  Maybe it shouldn't be magic.  But then if we just did what we
+   were meant to do, God wouldn't have given us Jar Jar Binks. */
+
+#nav-trigger { /* checkbox that we can test if checked */
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+
+#settings-menu-icon {
+  cursor: pointer;
+  position: absolute;
+  font-size: 2.5em;
+  right: 0em;
+  top: 0em;
+  padding: 0.75em 1.8em;
+}
+
+#menu {
+  display: none;
+}
+
+#nav-trigger:checked ~ #menu {
+  display: block;
+  background-color: white;
+  width: 92%;
+  padding: 0.7em 0;
+  border: 1px solid #5f99cf;
+  border-radius: 0.5em;
+  margin: 0.6em auto;
 }

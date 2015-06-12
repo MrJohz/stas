@@ -11,9 +11,18 @@
 
     <header>
       <h1><a href="./">Shit the Admins Say</a></h1>
+      <input type="checkbox" id="nav-trigger">
+      <label for="nav-trigger" id="settings-menu-icon" class="fa fa-bars"></label>
+      <div id="menu">HELLO!  I AM THE MENU!</div>
     </header>
 
-    <content id="target" class="loading"></content>
+    <content id="target" class="loading">
+      <noscript>
+        This site heavily requires the use of Javascript to make requests to the
+        Reddit API.  This message will appear if you are not using Javascript to warn you
+        that there will be very limited functionality on this site.
+      </noscript>
+    </content>
 
     <script id="template" type="text/template">
       {{#posts}}
