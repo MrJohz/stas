@@ -121,6 +121,38 @@
     renderPoint.innerHTML = postsTemplate({posts: posts.list.toArray()});
   });
 
+  document.getElementById('selector-select-all').addEventListener('click', function(e) {
+    var adminCheck = this.parentNode.nextSibling;
+    while (adminCheck !== null) {
+
+      if (adminCheck.nodeName === "P") {  // only want paragraph nodes
+        var checkbox = adminCheck.children[1];
+        if (!checkbox.checked) {
+          checkbox.checked = true;
+          checkbox.onclick();
+        }
+      }
+
+      adminCheck = adminCheck.nextSibling;
+    }
+  })
+
+  document.getElementById('selector-select-none').addEventListener('click', function(e) {
+    var adminCheck = this.parentNode.nextSibling;
+    while (adminCheck !== null) {
+
+      if (adminCheck.nodeName === "P") {  // only want paragraph nodes
+        var checkbox = adminCheck.children[1];
+        if (checkbox.checked) {
+          checkbox.checked = false;
+          checkbox.onclick();
+        }
+      }
+
+      adminCheck = adminCheck.nextSibling;
+    }
+  })
+
 
   // Main
 
@@ -129,7 +161,7 @@
     var settings = domify(settingsTemplate({admins: ADMINS}));
     for (var i=0; i < settings.length; i++) {
       var para = settings[i];
-      if (para.nodeName !== "P") { continue; }
+      if (para.nodeName !== "P") { continue; } // skips any spare text nodes
 
       var admin = para.children[0].innerHTML.toLowerCase();
       if (localStorage.getItem('stas:show-' + admin) === 'false') {
