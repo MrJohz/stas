@@ -58,7 +58,7 @@ header a {
   text-align: center;
   background-color: rgb(247, 247, 248);
   width: 95%;
-  content: 'Loading...';
+  content: attr(data-loading);
   padding: 0.7em 0;
   display: table;
   border: 1px solid rgb(230, 230, 230);
@@ -74,7 +74,7 @@ header a {
 /* Magic for the menu.  Maybe it shouldn't be magic.  But then if we just did what we
    were meant to do, God wouldn't have given us Jar Jar Binks. */
 
-#nav-trigger { /* checkbox that we can test if checked */
+#menu-trigger { /* checkbox that we can test if checked */
   position: absolute;
   clip: rect(0, 0, 0, 0);
 }
@@ -92,7 +92,7 @@ header a {
   display: none;
 }
 
-#nav-trigger:checked ~ #menu {
+#menu-trigger:checked ~ #menu {
   display: block;
   background-color: white;
   width: 92%;
@@ -102,10 +102,35 @@ header a {
   margin: 0.6em auto;
 }
 
-#nav-trigger:checked ~ #menu > p {
+#menu > p {
   display: inline-block;
   padding: 0.3em;
   margin: 0.2em 0.5em;
   border: 1px solid rgb(230, 230, 230);
   border-radius: 0.5em;
+}
+
+#menu > h3 {
+  margin-bottom: 0.1em;
+}
+
+#menu > #menu-selectors {
+  margin-bottom: 1em;
+}
+
+.selector {
+  cursor: pointer;
+  margin-right: 0.6em;
+}
+
+.selector:hover:after {
+  background-color: #cee3f8;
+  border: 1px solid #5f99cf;
+  border-radius: 0.2em;
+  padding: 0.3em;
+  position: absolute;
+  top: 1em;
+  left: -0.2em;
+
+  content: attr(data-tooltip);
 }

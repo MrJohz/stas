@@ -11,14 +11,18 @@
 
     <header>
       <h1><a href="./">Shit the Admins Say</a></h1>
-      <input type="checkbox" id="nav-trigger" />
-      <label for="nav-trigger" id="settings-menu-icon" class="fa fa-bars"></label>
+      <input type="checkbox" id="menu-trigger" />
+      <label for="menu-trigger" id="settings-menu-icon" class="fa fa-bars"></label>
       <div id="menu">
         <h3>Select your admins...</h3>
+        <div id="menu-selectors">
+          <a id="selector-select-all" class="selector fa fa-circle" data-tooltip="all admins"></a>
+          <a id="selector-select-none" class="selector fa fa-circle-o" data-tooltip="no admins"></a>
+        </div>
       </div>
     </header>
 
-    <content id="target">
+    <content data-loading="Loading..." id="target">
       <noscript>
         This site heavily requires the use of Javascript to make requests to the
         Reddit API.  This message will appear if you are not using Javascript to warn you
