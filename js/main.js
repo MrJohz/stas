@@ -1,6 +1,8 @@
 (function stasMain() {
   "use strict";
 
+  // Constants
+
   var ADMINS = [
     '5days', 'acidtwist', 'ajacksified', /*'akahotcheetos', 'aurora-73', 'bethereinfive',
     'bluemoon3689', 'bluepinkblack', 'bsimpson', 'cat_sweaterz', 'chooter', 'ckk524',
@@ -15,6 +17,16 @@
     'youngluck', 'zeantsoi', 'zubair'*/
   ]
 
+
+  // Utilities
+
+  function domify(string) {
+    var div = document.createElement('div');
+    div.innerHTML = string;
+    return div.childNodes;
+  }
+
+
   // Set up Reddit wrapper
   var reddit = new Snoocore({
     userAgent: '/u/MrJohz STAS@0.0.1 (basically just testing at the moment)',
@@ -28,19 +40,49 @@
     decodeHtmlEntities: true
   });
 
-  var posts = new PostList();
+  window.posts = new PostList();
 
   // Templating
-  Handlebars.registerHelper('stripType', function(id) { return id.substring(3); })
-  Handlebars.registerHelper('toHuman', function(ts) { return moment.unix(ts).fromNow() })
+  Handlebars.registerHelper('stripType', function (id) { return id.substring(3); })
+  Handlebars.registerHelper('toHuman', function (ts) { return moment.unix(ts).fromNow() })
 
-  var template = Handlebars.compile(document.getElementById('template').innerHTML);
+  var postsTemplate = Handlebars.compile(document.getElementById('content-template').innerHTML);
+  var settingsTemplate = Handlebars.compile(document.getElementById('menu-template').innerHTML);
   var renderPoint = document.getElementById('target');
-  posts.bind('update', function(posts) {
-    renderPoint.innerHTML = template({posts: posts.list.toArray()});
+  posts.bind('update', function (posts) {
+    renderPoint.innerHTML = postsTemplate({posts: posts.list.toArray()});
   })
 
+
+  // Event handlers
+
+  function hideAdmin(name) {
+    return function (e) {
+      posts.hide(name);
+      this.onclick = showAdmin(name);
+    }
+  }
+  function showAdmin(name) {
+    return function (e) {
+      posts.show(name);
+      this.onclick = hideAdmin(name);
+    }
+  }
+
+
+  // Main
+
   window.addEventListener('load', function load() {
+
+    var settings = domify(settingsTemplate({admins: ADMINS}));
+    for (var i=0; i < settings.length; i++) {
+      var para = settings[i];
+      if (para.nodeName !== "P") { continue; }
+
+      para.children[1].onclick = hideAdmin(para.children[0].innerHTML);
+      document.getElementById('menu').appendChild(para);
+    }
+
     var promises = ADMINS.map(function foreachAdmin(admin) {
 
       return reddit('/user/' + admin + '/comments')
@@ -59,7 +101,7 @@
         });
     });
 
-    Q.all(promises).fin(function() {
+    Q.all(promises).fin(function () {
       document.getElementById('target').classList.remove('loading');
     }).fail(console.error.bind(console));
   });

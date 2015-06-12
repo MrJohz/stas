@@ -11,9 +11,9 @@
 
     <header>
       <h1><a href="./">Shit the Admins Say</a></h1>
-      <input type="checkbox" id="nav-trigger">
+      <input type="checkbox" id="nav-trigger" />
       <label for="nav-trigger" id="settings-menu-icon" class="fa fa-bars"></label>
-      <div id="menu">HELLO!  I AM THE MENU!</div>
+      <div id="menu"></div>
     </header>
 
     <content id="target" class="loading">
@@ -24,7 +24,16 @@
       </noscript>
     </content>
 
-    <script id="template" type="text/template">
+    <script id="menu-template" type="text/template">
+    {{#admins}}
+      <p>
+        <label for="{{this}}-check">{{this}}</label>
+        <input type="checkbox" id="{{this}}-check" class="admin-checkbox" checked />
+      </p>
+    {{/admins}}
+    </script>
+
+    <script id="content-template" type="text/template">
       {{#posts}}
         <div class="post">
           <div class="post-leftbar">
