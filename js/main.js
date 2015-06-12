@@ -4,7 +4,7 @@
   // Constants
 
   var ADMINS = [
-    '5days', 'acidtwist', 'ajacksified', /*'akahotcheetos', 'aurora-73', 'bethereinfive',
+    '5days', 'acidtwist', 'ajacksified', 'akahotcheetos', 'aurora-73', 'bethereinfive',
     'bluemoon3689', 'bluepinkblack', 'bsimpson', 'cat_sweaterz', 'chooter', 'ckk524',
     'cmrnwllsbrn', 'comeforthlazarus', 'curioussavage01', 'danehansen', 'deimorz',
     'dforsyth', 'donotlicktoaster', 'drew', 'drunkeneconomist', 'ekjp', 'florwat',
@@ -14,7 +14,7 @@
     'ocrasorm', 'pixelinaa', 'powerlanguage', 'rhymeswithandrew', 'rram', 'rrmckinley',
     'ryanmerket', 'sgtjamz', 'spladug', 'sporkicide', 'taxidermyunicornhead', 'tdohz',
     'thorarakis', 'umbrae', 'weffey', 'willowgrain', 'xilvar', 'xiongchiamiov',
-    'youngluck', 'zeantsoi', 'zubair'*/
+    'youngluck', 'zeantsoi', 'zubair'
   ]
 
 
@@ -40,15 +40,41 @@
     decodeHtmlEntities: true
   });
 
+
+  // set up list of posts
   window.posts = new PostList();
 
+
   // Templating
+
   Handlebars.registerHelper('stripType', function (id) { return id.substring(3); })
   Handlebars.registerHelper('toHuman', function (ts) { return moment.unix(ts).fromNow() })
 
   var postsTemplate = Handlebars.compile(document.getElementById('content-template').innerHTML);
   var settingsTemplate = Handlebars.compile(document.getElementById('menu-template').innerHTML);
-  var renderPoint = document.getElementById('target');
+  var renderPoint = document.getElementById('target');  // the element that the posts content will be inserted into, cached
+
+  var loadingChecker = new (function () {
+    this.currentlyLoading = 0;
+
+    this.checkLoading = function() {
+      if (this.currentlyLoading === 0) {
+        document.getElementById('target').classList.remove('loading');
+      } else {
+        document.getElementById('target').classList.add('loading');
+      }
+    }
+
+    this.incr = function() {
+      this.currentlyLoading += 1;
+      this.checkLoading();
+    }
+
+    this.decr = function () {
+      this.currentlyLoading -= 1;
+      this.checkLoading();
+    }
+  })()
 
 
   // Event handlers
@@ -69,6 +95,8 @@
   }
 
   function updateAdmin(admin) {
+    loadingChecker.incr();
+
     return reddit('/user/' + admin + '/comments')
       .listing({ limit: 50, sort: 'new' })
       .then(function commentsThen(slice) {
@@ -82,6 +110,7 @@
         })
 
         posts.add(commentsToAdd);
+        loadingChecker.decr();
       });
   }
 
