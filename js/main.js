@@ -57,17 +57,18 @@
     return function (e) {
       posts.hide(name);
       this.onclick = showAdmin(name);
+      localStorage.setItem('stas:show-' + name.toLowerCase(), 'false');
     }
   }
   function showAdmin(name) {
     return function (e) {
       posts.show(name);
       this.onclick = hideAdmin(name);
+      localStorage.setItem('stas:show-' + name.toLowerCase(), 'true');
     }
   }
 
   function updateAdmin(admin) {
-
     return reddit('/user/' + admin + '/comments')
       .listing({ limit: 50, sort: 'new' })
       .then(function commentsThen(slice) {
@@ -101,15 +102,17 @@
       var para = settings[i];
       if (para.nodeName !== "P") { continue; }
 
-      para.children[1].onclick = hideAdmin(para.children[0].innerHTML);
+      var admin = para.children[0].innerHTML.toLowerCase();
+      if (localStorage.getItem('stas:show-' + admin) === 'false') {
+        para.children[1].checked = false;
+        para.children[1].onclick = showAdmin(admin);
+      } else {
+        updateAdmin(admin);
+        para.children[1].onclick = hideAdmin(admin);
+      }
+
       document.getElementById('menu').appendChild(para);
     }
-
-    var promises = ADMINS.map(updateAdmin);
-
-    Q.all(promises).fin(function () {
-      document.getElementById('target').classList.remove('loading');
-    }).fail(console.error.bind(console));
   });
 
 })();

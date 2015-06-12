@@ -21,7 +21,7 @@
       return true;
     }).bind(this));
 
-    this.trigger('hide', name, this);
+    this.trigger('hide', this, name);
     this.trigger('update', this);
   }
 
@@ -36,7 +36,7 @@
       return true;
     }).bind(this));
 
-    this.trigger('show', name, this);
+    this.trigger('show', this, name);
     this.trigger('update', this);
   }
 
